@@ -101,7 +101,7 @@ const Login = () => {
             />
             {passwordError && <p className="text-red-400 text-sm">{passwordError}</p>} 
           </div>
-          <Link to="/dashboard">
+          <Link to="/homepage">
             <button
               type="submit"
               className="border border-green-500 text-green-700 w-full p-2 rounded-md transition

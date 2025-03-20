@@ -1,5 +1,5 @@
 import './App.css'
-import Dashboard from './Components/Dashboard/Dashboard'
+import Homepage from './Pages/Homepage/Homepage'
 import Login from './Components/Login/Login'
 import Register from './Components/Register/Register'
 
@@ -18,8 +18,8 @@ const router = createBrowserRouter([
     element: <div><Register/></div>
   },
   {
-    path: '/dashboard',
-    element: <div><Dashboard/></div>
+    path: '/homepage',
+    element: <div><Homepage/></div>
   },
 ])
 
