@@ -37,7 +37,7 @@ const Header = () => {
 
   const handleScroll = () => {
     if (window.scrollY > 50) {
-      setBgColor('#d8e6e1'); 
+      setBgColor('#a5cfc1'); 
     } else {
       setBgColor('transparent');
     }
@@ -79,7 +79,7 @@ const Header = () => {
             <Link to="/">
             <button 
             type="submit"
-            className="border border-green-500 text-green-700 px-5 py-2 rounded-md transition
+            className="border border-green-500 text-green-700 px-5 py-2 rounded-full transition 
                 hover:bg-green-200 hover:text-green-900 
                 active:bg-[#a2dbcb] active:text-[#1ca981]">
                     Log Out

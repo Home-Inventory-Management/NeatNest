@@ -3,8 +3,8 @@ import React from "react";
 const Footer = () => {
   return (
     <footer className="w-full flex flex-col justify-end items-center px-8 py-16 relative bg-green-900 text-gray-300">
-      <div className="absolute inset-8 bg-gradient-to-t from-black via-black/80 to-black/0 z-0"></div>
-      <div className="flex flex-wrap w-full justify-evenly z-10">
+      <div className="absolute inset-8 bg-gradient-to-t from-black via-black/80 to-black/0 z-0 rounded-2xl overflow-hidden"></div>
+      <div className="flex flex-wrap w-full justify-evenly z-10 ">
         <div className="flex flex-col items-start space-y-2 w-1/4">
           <h3 className="text-xl font-semibold">NeatNest</h3>
           <p>
@@ -23,13 +23,13 @@ const Footer = () => {
           </div>
           <p className="text-sm text-gray-500">2025 © All Rights Reserved</p>
         </div>
-        <div className="flex flex-col space-y-2 w-1/4 bg-green-800 p-4 rounded-lg">
+        <div className="flex flex-col space-y-2 w-1/4 bg-green-800 p-4 rounded-2xl">
           <p>Our Mission</p>
           <p>Minimize waste with smart tracking.</p>
           <p>Save time with personalized suggestions.</p>
           <p>Enable sustainable and cost-effective shopping.</p>
         </div>
-        <div className="flex flex-col space-y-2 w-1/4 bg-green-800 p-4 rounded-lg">
+        <div className="flex flex-col space-y-2 w-1/4 bg-green-800 p-4 rounded-2xl">
           <p>Our Vision</p>
           <p>Simplify grocery management.</p>
           <p>Keep households stocked with essentials.</p>

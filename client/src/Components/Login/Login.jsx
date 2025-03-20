@@ -64,7 +64,7 @@ const Login = () => {
           <div className="flex flex-col items-center">
             <span className="mb-2 text-green-900 text-[18px]">Don't Have An Account?</span>
             <Link to={'/register'}>
-              <button className="border border-green-500 text-green-700 px-5 py-2 rounded-md transition 
+              <button className="border border-green-500 text-green-700 px-5 py-2 rounded-full transition 
                 hover:bg-green-200 hover:text-green-900 
                 active:bg-[#a2dbcb] active:text-[#1ca981]">
                 Sign Up
@@ -104,7 +104,7 @@ const Login = () => {
           <Link to="/homepage">
             <button
               type="submit"
-              className="border border-green-500 text-green-700 w-full p-2 rounded-md transition
+              className="border border-green-500 text-green-700 w-full p-2 rounded-full transition
                 hover:bg-green-200 hover:text-green-900 
                 active:bg-[#a2dbcb] active:text-[#1ca981]"
             >
