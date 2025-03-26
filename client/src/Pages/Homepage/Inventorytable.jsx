@@ -31,7 +31,7 @@ const Inventorytable = () => {
           <img
             src={InventoryTable}
             alt="Inventory"
-            className="rounded-lg w-full max-w-sm mt-16"
+            className="rounded-lg w-full max-w-sm"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-gray-900/60 to-transparent rounded-lg"></div>
         </div>
