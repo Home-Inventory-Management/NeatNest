@@ -61,7 +61,7 @@ const Header = () => {
 
         <div className="flex items-center ml-0">
           <img src={Logo} alt="Logo" className="w-20 h-20" />
-          <h1 className="font-bold text-2xl text-green-900">NeatNest</h1>
+          <h1 className="font-extrabold text-2xl text-green-900">NeatNest</h1>
         </div>
         <div className="hidden lg:block">
           <ul className="flex items-center font-poppins gap-7">
