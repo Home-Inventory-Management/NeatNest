@@ -2,6 +2,7 @@ import './App.css'
 import Homepage from './Pages/Homepage/Homepage'
 import Login from './Components/Login/Login'
 import Register from './Components/Register/Register'
+import InventoryManagement from './Pages/InventoryManagement/InventoryManagement'
 
 import{
   createBrowserRouter,
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
   {
     path: '/homepage',
     element: <div><Homepage/></div>
+  },
+  {
+    path: '/inventorymanagement',
+    element: <div><InventoryManagement/></div>
   },
 ])
 

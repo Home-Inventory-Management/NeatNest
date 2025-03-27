@@ -13,7 +13,7 @@ const NavbarMenu = [
   {
     id: 2,
     title: "Inventory",
-    link: "#",
+    path: "/inventorymanagement",
   },
   {
     id: 3,
@@ -53,40 +53,42 @@ const Header = () => {
   return (
     <nav className="relative z-20">
       <motion.div
-  initial={{ opacity: 0, y: -50 }}
-  animate={{ opacity: 1, y: 0 }}
-  className="w-full top-0 left-0 py-3 px-10 lg:px-20 flex justify-between items-center transition-all duration-300"
-  style={{ backgroundColor: bgColor }}
->
-
+        initial={{ opacity: 0, y: -50 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="w-full top-0 left-0 py-3 px-10 lg:px-20 flex justify-between items-center transition-all duration-300"
+        style={{ backgroundColor: bgColor }}
+      >
         <div className="flex items-center ml-0">
           <img src={Logo} alt="Logo" className="w-20 h-20" />
           <h1 className="font-extrabold text-2xl text-green-900">NeatNest</h1>
         </div>
+
         <div className="hidden lg:block">
           <ul className="flex items-center font-poppins gap-7">
             {NavbarMenu.map((menu) => (
-              <li key={menu.id}>
-                <a
+              <motion.li key={menu.id} whileHover={{ scale: 1.1 }} transition={{ duration: 0.2 }}>
+                <motion.a
                   href={menu.path}
-                  className="inline-block py-2 px-3 hover:text-[#69a79c] relative group"
+                  className="inline-block py-2 px-3 text-gray-700 hover:text-green-900 transition-colors relative group"
                 >
                   <div className="w-2 h-2 bg-[#69a79c] absolute mt-4 rounded-full left-1/2 -translate-x-1/2 top-1/2 bottom-0 group-hover:block hidden"></div>
                   {menu.title}
-                </a>
-              </li>
+                </motion.a>
+              </motion.li>
             ))}
+
             <Link to="/">
-            <button 
-            type="submit"
-            className="border border-green-500 text-green-700 px-5 py-2 rounded-full transition 
-                hover:bg-green-200 hover:text-green-900 
-                active:bg-[#a2dbcb] active:text-[#1ca981]">
-                    Log Out
-            </button>
+              <button 
+                type="submit"
+                className="border border-green-500 text-green-700 px-5 py-2 rounded-full transition 
+                hover:bg-green-200 hover:text-green-900 active:bg-[#a2dbcb] active:text-[#1ca981]"
+              >
+                Log Out
+              </button>
             </Link>
           </ul>
         </div>
+
         <div className="lg:hidden">
           <IoMdMenu className="text-4xl" />
         </div>
