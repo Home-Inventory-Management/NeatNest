@@ -116,9 +116,9 @@ const ConsumptionGraphs = () => {
     <div className="min-h-screen flex flex-col items-center justify-center bg-white p-10 relative">
       <div className="absolute inset-0 opacity-30 blur-3xl"></div>
       <div className="absolute top-20 left-20 w-60 h-60 bg-green-400 opacity-20 rounded-full blur-2xl"></div>
-      <div className="absolute bottom-20 right-20 w-80 h-80 bg-green-600 opacity-20 rounded-full blur-3xl"></div>
+      <div className="absolute bottom-16 right-20 w-80 h-80 bg-green-600 opacity-20 rounded-full blur-3xl"></div>
 
-      <h2 className="text-4xl font-extrabold text-green-900 text-center drop-shadow-lg mb-12m,n  oo9im     b7nvv767y">
+      <h2 className="text-4xl font-extrabold text-green-900 text-center p-4 drop-shadow-lg mb-12m,n  oo9im     b7nvv767y">
         Interactive Consumption Graphs
       </h2>
 

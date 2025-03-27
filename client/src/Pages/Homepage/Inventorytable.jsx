@@ -43,7 +43,7 @@ const Inventorytable = () => {
         <input
           type="text"
           placeholder="🔍 Search items..."
-          className="px-5 py-2 mb-6 border border-gray-300 rounded-full focus:outline-none focus:ring-1 focus:ring-green-900 shadow-md"
+          className="px-5 py-2 mb-6 border border-green-700 rounded-full focus:outline-none focus:ring-1 focus:ring-green-900 shadow-md"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
