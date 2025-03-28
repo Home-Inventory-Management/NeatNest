@@ -13,7 +13,7 @@ const NavbarMenu = [
   {
     id: 2,
     title: "Inventory",
-    path: "/inventorymanagement",
+    path: "/inventorydashboard",
   },
   {
     id: 3,
