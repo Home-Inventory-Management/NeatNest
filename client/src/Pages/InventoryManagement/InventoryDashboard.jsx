@@ -4,7 +4,6 @@ import {
   FaClock,
   FaExclamationTriangle,
   FaPlus,
-  FaBarcode,
   FaClipboardList,
   FaEdit,
   FaTrashAlt,
@@ -49,9 +48,18 @@ const summaryCards = [
 ];
 
 const quickActions = [
-  { name: "Add Item", icon: <FaPlus />, bg: "bg-green-500" },
-  { name: "Scan Barcode", icon: <FaBarcode />, bg: "bg-blue-500" },
-  { name: "Generate List", icon: <FaClipboardList />, bg: "bg-purple-500" },
+  {
+    name: "Add Item",
+    icon: <FaPlus />,
+    bg: "bg-green-500",
+    path: "/addinventory",
+  },
+  {
+    name: "Inventory List",
+    icon: <FaClipboardList />,
+    bg: "bg-blue-500",
+    path: "/inventorylist",
+  },
 ];
 
 const activities = [
@@ -105,27 +113,17 @@ const InventoryDashboard = () => {
             ))}
           </div>
 
-          <div className="flex justify-center gap-4 my-8">
-            {quickActions.map((action, index) =>
-              action.name === "Add Item" ? (
-                <Link to="/addinventory" key={index}>
-                  <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    className={`px-6 py-3 ${action.bg} text-white rounded-lg flex items-center gap-2 text-lg font-semibold shadow-md transition`}
-                  >
-                    {action.icon} {action.name}
-                  </motion.button>
-                </Link>
-              ) : (
+          <div className="flex justify-center gap-6 my-8">
+            {quickActions.map((action, index) => (
+              <Link to={action.path} key={index}>
                 <motion.button
-                  key={index}
                   whileHover={{ scale: 1.05 }}
-                  className={`px-6 py-3 ${action.bg} text-white rounded-lg flex items-center gap-2 text-lg font-semibold shadow-md transition`}
+                  className={`px-8 py-3 ${action.bg} text-white rounded-lg flex items-center gap-2 text-lg font-semibold shadow-md transition`}
                 >
                   {action.icon} {action.name}
                 </motion.button>
-              )
-            )}
+              </Link>
+            ))}
           </div>
 
           <div className="bg-white shadow-md rounded-xl p-4 flex flex-wrap gap-4 items-center justify-between">
