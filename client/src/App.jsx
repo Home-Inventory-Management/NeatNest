@@ -4,7 +4,7 @@ import Login from './Components/Login/Login'
 import Register from './Components/Register/Register'
 import InventoryDashboard from './Pages/InventoryManagement/InventoryDashboard'
 import AddInventory from './Pages/InventoryManagement/AddInventory'
-import ScanBarcode from './Pages/InventoryManagement/ScanBarcode'
+import InventoryList from './Pages/InventoryManagement/InventoryList'
 
 import{
   createBrowserRouter,
@@ -31,6 +31,10 @@ const router = createBrowserRouter([
   {
     path: '/addinventory',
     element: <div><AddInventory/></div>
+  },
+  {
+    path: '/inventorylist',
+    element: <div><InventoryList/></div>
   },
 ])
 
