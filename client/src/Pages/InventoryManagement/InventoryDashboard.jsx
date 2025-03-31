@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   FaBoxOpen,
   FaClock,
@@ -62,6 +62,18 @@ const quickActions = [
   },
 ];
 
+const dummyRecentlyAdded = [
+  { name: "Bananas", addedOn: "Today" },
+  { name: "Apples", addedOn: "Yesterday" },
+];
+
+const dummyExpiringItems = [
+  { name: "Milk", expiry: "2 Days Left" },
+  { name: "Cheese", expiry: "3 Days Left" },
+];
+
+const allDummyData = [...dummyRecentlyAdded, ...dummyExpiringItems];
+
 const activities = [
   {
     text: "Tomatoes added to inventory.",
@@ -92,6 +104,23 @@ const recommendations = [
 ];
 
 const InventoryDashboard = () => {
+  const [filter, setFilter] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
+
+  const getFilteredData = () => {
+    if (filter === "Recently Added") return dummyExpiringItems;
+    if (filter === "Expiring Soon") return dummyRecentlyAdded;
+    return [];
+  };
+
+  const handleSearch = () => {
+    const filteredData = allDummyData.filter((item) =>
+      item.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setSearchResults(filteredData);
+  };
+
   return (
     <div>
       <Header />
@@ -131,13 +160,51 @@ const InventoryDashboard = () => {
               type="text"
               placeholder="🔍 Search items..."
               className="border border-green-700 rounded-full focus:outline-none focus:ring-1 focus:ring-green-900 shadow-md px-5 py-2 w-full md:w-2/3"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
             />
-            <select className="border border-green-700 rounded-md px-4 py-2">
-              <option>By Category</option>
-              <option>By Expiry Date</option>
-              <option>Recently Used</option>
+            
+            <select
+              className="border border-green-700 rounded-md px-4 py-2"
+              onChange={(e) => setFilter(e.target.value)}
+            >
+              <option value="">Filter</option>
+              <option value="Expiring Soon">Expiring Soon</option>
+              <option value="Recently Added">Recently Added</option>
             </select>
           </div>
+
+          <div className="mt-8">
+  {filter && (
+    <motion.div
+      initial={{ opacity: 0, y: -10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4 }}
+      className="bg-white p-6 rounded-xl shadow-lg border border-gray-200"
+    >
+      <h2 className="text-3xl font-semibold mb-4 text-green-900 flex items-center gap-2">
+        <span className="text-green-500">📌</span> {filter}
+      </h2>
+      <ul className="space-y-3">
+        {getFilteredData().map((item, index) => (
+          <motion.li
+            key={index}
+            initial={{ opacity: 0, x: -10 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.3, delay: index * 0.1 }}
+            className="p-4 bg-gray-50 rounded-lg shadow-md flex justify-between items-center border border-gray-200 hover:bg-gray-100 transition-all"
+          >
+            <span className="text-lg font-medium text-gray-800">{item.name}</span>
+            <span className="text-sm text-blue-600">
+              {item.expiry ? `⏳ ${item.expiry}` : `📅 ${item.addedOn}`}
+            </span>
+          </motion.li>
+        ))}
+      </ul>
+    </motion.div>
+  )}
+</div>
+
 
           <section className="min-h-screen">
             <div className="max-w-6xl mx-auto">
