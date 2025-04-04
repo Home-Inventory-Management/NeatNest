@@ -10,7 +10,6 @@ const Homepage = () => {
       <Header/>
       <Hero/>
       <Over/>
-      <Footer/>
     </div>
     
   )

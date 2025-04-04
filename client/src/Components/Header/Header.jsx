@@ -3,6 +3,7 @@ import { IoMdMenu } from "react-icons/io";
 import { motion } from "framer-motion";
 import Logo from '../../assets/Logo.png';
 import {Link} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
 
 const NavbarMenu = [
   {
@@ -13,27 +14,28 @@ const NavbarMenu = [
   {
     id: 2,
     title: "Inventory",
-    link: "#",
+    path: "/inventory",
   },
   {
     id: 3,
     title: "Grocery",
-    link: "#",
+    path: "/grocery",
   },
   {
     id: 4,
     title: "Analytics",
-    link: "#",
+    path: "/analytics",
   },
   {
     id: 5,
     title: "Notification",
-    link: "#",
+    path: "/notification",
   },
 ];
 
 const Header = () => {
   const [bgColor, setBgColor] = useState('transparent');
+  const navigate = useNavigate();
 
   const handleScroll = () => {
     if (window.scrollY > 50) {
@@ -53,12 +55,11 @@ const Header = () => {
   return (
     <nav className="relative z-20">
       <motion.div
-  initial={{ opacity: 0, y: -50 }}
-  animate={{ opacity: 1, y: 0 }}
-  className="w-full top-0 left-0 py-3 px-10 lg:px-20 flex justify-between items-center transition-all duration-300"
-  style={{ backgroundColor: bgColor }}
->
-
+        initial={{ opacity: 0, y: -50 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="w-full top-0 left-0 py-3 px-10 lg:px-20 flex justify-between items-center transition-all duration-300"
+        style={{ backgroundColor: bgColor }}
+      >
         <div className="flex items-center ml-0">
           <img src={Logo} alt="Logo" className="w-20 h-20" />
           <h1 className="font-bold text-2xl text-green-900">NeatNest</h1>
@@ -67,24 +68,22 @@ const Header = () => {
           <ul className="flex items-center font-poppins gap-7">
             {NavbarMenu.map((menu) => (
               <li key={menu.id}>
-                <a
-                  href={menu.path}
-                  className="inline-block py-2 px-3 hover:text-[#69a79c] relative group"
+                <button
+                  onClick={() => navigate(menu.path)}
+                  className="inline-block py-2 px-3 hover:text-[#69a79c] relative group cursor-pointer"
                 >
                   <div className="w-2 h-2 bg-[#69a79c] absolute mt-4 rounded-full left-1/2 -translate-x-1/2 top-1/2 bottom-0 group-hover:block hidden"></div>
                   {menu.title}
-                </a>
+                </button>
               </li>
             ))}
-            <Link to="/">
             <button 
-            type="submit"
-            className="border border-green-500 text-green-700 px-5 py-2 rounded-full transition 
+              onClick={() => navigate('/')}
+              className="border border-green-500 text-green-700 px-5 py-2 rounded-full transition 
                 hover:bg-green-200 hover:text-green-900 
-                active:bg-[#a2dbcb] active:text-[#1ca981]">
-                    Log Out
+                active:bg-[#a2dbcb] active:text-[#1ca981] cursor-pointer">
+              Log Out
             </button>
-            </Link>
           </ul>
         </div>
         <div className="lg:hidden">
