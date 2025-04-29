@@ -178,21 +178,6 @@ const Register = () => {
               )}
             </div>
 
-            <div className="mb-3">
-              <label className="block text-gray-700">Confirm Password</label>
-              <input
-                type="password"
-                className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
-                value={confirmPassword}
-                onChange={handleConfirmPasswordChange}
-                placeholder="⍰ Confirm your password"
-                required
-              />
-              {confirmPasswordError && (
-                <p className="text-red-400 text-sm">{confirmPasswordError}</p>
-              )}
-            </div>
-
             <Link to="/">
               <button
                 type="submit"
