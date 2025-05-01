@@ -1,0 +1,5 @@
+# PGUSER=postgres
+# PGPASSWORD=Kavi@1221
+# PGHOST=localhost
+# PGDATABASE=neatnest
+# PGPORT=5432 */
