@@ -67,6 +67,10 @@ router.get('/:id', async (req, res) => {
 
 // Add a new grocery
 router.post('/', async (req, res) => {
+  const errors = validateGroceryInput(req.body);
+  if (Object.keys(errors).length > 0) {
+    return res.status(400).json({ errors });
+  }
   try {
     // Check for duplicate name (case-insensitive)
     const allGroceries = await getAllGroceries(req.pool);
@@ -78,7 +82,6 @@ router.post('/', async (req, res) => {
     res.status(201).json(newGrocery);
   } catch (error) {
     res.status(400).json({ message: error.message });
-    console.log(error)
   }
 });
 

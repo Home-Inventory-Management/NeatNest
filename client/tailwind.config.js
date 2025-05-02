@@ -14,12 +14,10 @@ export default {
           globalbank: ['Montserrat', 'sans-serif'],
           amplitude: ['Urbanist', 'sans-serif'],
         },
-
         colors: {
             background: "var(--background)",
             foreground: "var(--foreground)",
           },
-
       container: {
         center: true,
         padding: {

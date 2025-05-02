@@ -1,35 +1,50 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import axios from "axios";
 
-const EditGrocery = ({ onUpdate }) => {
+const EditGrocery = () => {
   const navigate = useNavigate();
-  const { productId } = useParams();
+  const { id } = useParams();
   const [formData, setFormData] = useState({
     productName: "",
     category: "",
     quantity: 1,
+    imageUrl: "",
   });
   const [errors, setErrors] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const categories = ["Fruits", "Vegetables", "Meat", "Dairy", "Bakery", "Beverages", "Snacks", "Canned Goods"];
 
   useEffect(() => {
     const fetchGroceryItem = async () => {
       try {
-        const response = await fetch(`/api/grocery/${productId}`);
+        const response = await fetch(`http://localhost:5000/api/groceries/${id}`);
         const data = await response.json();
+        console.log("API Response:", data);
+
+        // Process the category data correctly
+        let categoryValue = "";
+        if (data.category) {
+          if (Array.isArray(data.category) && data.category.length > 0) {
+            categoryValue = data.category[0].toLowerCase();
+          } else if (typeof data.category === "string") {
+            categoryValue = data.category.toLowerCase();
+          }
+        }
+
         setFormData({
           productName: data.name,
-          category: data.categories[0].toLowerCase(),
+          category: categoryValue,
           quantity: data.quantity,
+          imageUrl: data.image_url || "",
         });
       } catch (error) {
         console.error("Error fetching grocery item:", error);
       }
     };
-
     fetchGroceryItem();
-  }, [productId]);
+  }, [id]);
 
-  // Validation Function
   const validateForm = () => {
     let newErrors = {};
 
@@ -51,6 +66,11 @@ const EditGrocery = ({ onUpdate }) => {
     const quantity = parseInt(formData.quantity, 10);
     if (isNaN(quantity) || quantity < 1 || quantity > 100) {
       newErrors.quantity = "Quantity must be between 1 and 100.";
+    }
+
+    // Validate image URL (optional, but must be a valid URL if provided)
+    if (formData.imageUrl && !/^https?:\/\/.+\..+/.test(formData.imageUrl)) {
+      newErrors.imageUrl = "Please enter a valid image URL (http/https)";
     }
 
     setErrors(newErrors);
@@ -79,30 +99,40 @@ const EditGrocery = ({ onUpdate }) => {
       if (isNaN(quantity) || quantity < 1 || quantity > 100) {
         errorMsg = "Quantity must be between 1 and 100.";
       }
+    } else if (name === "imageUrl") {
+      if (value && !/^https?:\/\/.+\..+/.test(value)) {
+        errorMsg = "Please enter a valid image URL (http/https)";
+      }
     }
 
     setErrors((prevErrors) => ({ ...prevErrors, [name]: errorMsg }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validateForm()) return;
 
+    setIsSubmitting(true);
+
     const updatedItem = {
-      productId: parseInt(productId),
       name: formData.productName,
-      categories: [formData.category.charAt(0).toUpperCase() + formData.category.slice(1)],
-      price: 0,
+      category: formData.category.charAt(0).toUpperCase() + formData.category.slice(1),
       quantity: parseInt(formData.quantity, 10),
+      image_url: formData.imageUrl || null,
     };
 
-    onUpdate(updatedItem);
+    try {
+      // Make API call to update the grocery item
+      await axios.put(`http://localhost:5000/api/groceries/${id}`, updatedItem);
 
-    // Ensure alert shows only after successful validation
-    setTimeout(() => {
       alert("Grocery Updated Successfully!");
       navigate("/grocery-list");
-    }); // Small delay to allow UI updates
+    } catch (error) {
+      console.error("Error updating grocery item:", error);
+      alert("Failed to update grocery item. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -116,7 +146,6 @@ const EditGrocery = ({ onUpdate }) => {
           </div>
           <h1 className="text-2xl font-bold mb-2">Edit Grocery Item</h1>
           <p className="text-gray-600 mb-6">Update the grocery item details below</p>
-
           <form onSubmit={handleSubmit} className="space-y-4">
             {/* Product Name */}
             <div>
@@ -130,7 +159,6 @@ const EditGrocery = ({ onUpdate }) => {
               />
               {errors.productName && <p className="text-red-500 text-sm">{errors.productName}</p>}
             </div>
-
             {/* Category */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">Category *</label>
@@ -141,13 +169,14 @@ const EditGrocery = ({ onUpdate }) => {
                 onChange={handleChange}
               >
                 <option value="">Select a category</option>
-                <option value="fruits">Fruits</option>
-                <option value="vegetables">Vegetables</option>
-                <option value="meat">Meat</option>
+                {categories.map((cat) => (
+                  <option key={cat} value={cat.toLowerCase()}>
+                    {cat}
+                  </option>
+                ))}
               </select>
               {errors.category && <p className="text-red-500 text-sm">{errors.category}</p>}
             </div>
-
             {/* Quantity */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">Quantity *</label>
@@ -162,10 +191,26 @@ const EditGrocery = ({ onUpdate }) => {
               />
               {errors.quantity && <p className="text-red-500 text-sm">{errors.quantity}</p>}
             </div>
-
+            {/* Image URL */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Image URL</label>
+              <input
+                type="text"
+                name="imageUrl"
+                className={`w-full border ${errors.imageUrl ? "border-red-500" : "border-gray-300"} rounded-md p-2 focus:ring-blue-500 focus:border-blue-500`}
+                value={formData.imageUrl}
+                onChange={handleChange}
+                placeholder="https://example.com/image.jpg"
+              />
+              {errors.imageUrl && <p className="text-red-500 text-sm">{errors.imageUrl}</p>}
+            </div>
             {/* Submit Button */}
-            <button type="submit" className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600">
-              Update Grocery
+            <button
+              type="submit"
+              className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 disabled:bg-blue-300"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? "Updating..." : "Update Grocery"}
             </button>
           </form>
         </div>
